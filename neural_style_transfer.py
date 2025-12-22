@@ -10,8 +10,8 @@ from torchvision.models import VGG19_Weights
 import matplotlib.pyplot as plt
 import copy
 
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+unloader = transforms.ToPILImage()
 
 def img_loader(img_name, imsize):
     loader = transforms.Compose([transforms.Resize((imsize, imsize)), transforms.ToTensor()])
@@ -20,9 +20,7 @@ def img_loader(img_name, imsize):
     img_tensor = img_tensor.unsqueeze(0)
     return img_tensor.to(device, torch.float)
 
-
 def imshow(tensor, title=None):
-    unloader = transforms.ToPILImage()  
     img = tensor.cpu().clone()
     img = img.squeeze(0)
     img = unloader(img)
@@ -31,7 +29,6 @@ def imshow(tensor, title=None):
         plt.title(title)
     plt.pause(0.001)
 
-
 def gram_matrix(input):
     a, b, c, d = input.size() # a=batch size(=1), b=number of feature maps, (c,d)=dimensions of a f. map (N=c*d)
 
@@ -39,7 +36,6 @@ def gram_matrix(input):
     G = torch.mm(features, features.t()) # compute the gram product
 
     return G.div(a*b*c*d) # normalize values of gram matrix by dividing by number of element in each feature maps
-
 
 class ContentLoss(nn.Module):
     def __init__(self, target):
@@ -50,7 +46,6 @@ class ContentLoss(nn.Module):
         self.loss = F.mse_loss(input, self.target)
         return input
     
-
 class StyleLoss(nn.Module):
     def __init__(self, target_feature):
         super(StyleLoss, self).__init__()
@@ -60,7 +55,6 @@ class StyleLoss(nn.Module):
         G = gram_matrix(input)
         self.loss = F.mse_loss(G, self.target)
         return input
-    
     
 class Normalization(nn.Module):
     def __init__(self, mean, std):
@@ -72,7 +66,6 @@ class Normalization(nn.Module):
         return (img - self.mean) / self.std
 
     
-
 # Load VGG19 model with pre-trained weights
 cnn = models.vgg19(weights=VGG19_Weights.IMAGENET1K_V1).features.to(device).eval()
 
@@ -87,13 +80,9 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
                                style_img, content_img,
                                content_layers=content_layers_default,
                                style_layers=style_layers_default):
-    cnn = copy.deepcopy(cnn)
-
     normalization = Normalization(normalization_mean, normalization_std).to(device)
-
     content_losses = []
     style_losses = []
-
     model = nn.Sequential(normalization)
     i = 0
     for layer in cnn.children():
@@ -112,7 +101,6 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
         
         model.add_module(name, layer)
 
-
         if name in content_layers:
             target = model(content_img).detach()
             content_loss = ContentLoss(target)
@@ -125,7 +113,6 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
             model.add_module("style_loss_{}".format(i), style_loss)
             style_losses.append(style_loss)
 
-
     # trim off layers after last content and style losses
     for i in range(len(model) - 1, -1, -1):
         if isinstance(model[i], ContentLoss) or isinstance(model[i], StyleLoss):
@@ -135,11 +122,9 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
     return model, style_losses, content_losses
     
 
-
 def get_input_optimizer(input_img):
     optimizer = optim.LBFGS([input_img.requires_grad_()])
     return optimizer
-
 
 def run_style_transfer(cnn, normalization_mean, normalization_std,
                        content_img, style_img, input_img, num_steps=300,
@@ -147,7 +132,6 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
     model, style_losses, content_losses = get_style_model_and_losses(cnn,
         normalization_mean, normalization_std, style_img, content_img)
     optimizer = get_input_optimizer(input_img)
-
 
     run = [0]
     while run[0] <= num_steps:
