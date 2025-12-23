@@ -1,4 +1,5 @@
 import os
+import time
 import torch 
 import argparse
 from neural_style_transfer import (
@@ -21,6 +22,7 @@ def parse_arguments():
 
 def main(args):
     print("Starting Neural Style Transfer...")
+    start_time = time.time()
     print(f"Content: {args.content}")
     print(f"Style: {args.style}")
     print(f"Steps: {args.num_steps}")
@@ -54,14 +56,17 @@ def main(args):
         style_weight=args.style_weight,
         content_weight=args.content_weight
     )
-    print("\nOptimization complete!\n")
+    end_time = time.time()
+    elapsed = end_time - start_time
+    minutes = int(elapsed // 60)
+    seconds = int(elapsed % 60)
+    print(f"\nStyle transfer complete in {minutes} minutes {seconds} seconds\n")
 
     # save results
     result_path = os.path.join(output_dir, 'result.jpg')
     comparison_path = os.path.join(output_dir, 'comparison.jpg')    
     save_image(output, result_path)
     save_comparison(content_img, style_img, output, comparison_path)
-    print("Results saved.")
 
 if __name__ == '__main__':
     args = parse_arguments()

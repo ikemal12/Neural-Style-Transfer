@@ -1,20 +1,18 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
-
-from PIL import Image
-import torchvision.transforms as transforms
+import torch.nn.functional as F
 import torchvision.models as models
+import torchvision.transforms as transforms
 from torchvision.models import VGG19_Weights
 import matplotlib.pyplot as plt
-import copy
+from PIL import Image
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 unloader = transforms.ToPILImage()
 
 def img_loader(img_name, imsize):
-    loader = transforms.Compose([transforms.Resize((imsize, imsize)), transforms.ToTensor()])
+    loader = transforms.Compose([transforms.Resize(imsize), transforms.CenterCrop(imsize), transforms.ToTensor()])
     img = Image.open(img_name)
     img_tensor: torch.Tensor = loader(img)  # type: ignore
     img_tensor = img_tensor.unsqueeze(0)
@@ -31,10 +29,8 @@ def imshow(tensor, title=None):
 
 def gram_matrix(input):
     a, b, c, d = input.size() # a=batch size(=1), b=number of feature maps, (c,d)=dimensions of a f. map (N=c*d)
-
     features = input.view(a * b, c * d)
     G = torch.mm(features, features.t()) # compute the gram product
-
     return G.div(a*b*c*d) # normalize values of gram matrix by dividing by number of element in each feature maps
 
 class ContentLoss(nn.Module):
@@ -65,16 +61,14 @@ class Normalization(nn.Module):
     def forward(self, img):
         return (img - self.mean) / self.std
 
-    
+
 # Load VGG19 model with pre-trained weights
 cnn = models.vgg19(weights=VGG19_Weights.IMAGENET1K_V1).features.to(device).eval()
-
 cnn_normalization_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
 cnn_normalization_std = torch.tensor([0.229, 0.224, 0.225]).to(device)
 
 content_layers_default = ['conv_4']
 style_layers_default = ['conv_1', 'conv_2', 'conv_3', 'conv_4', 'conv_5']
-
 
 def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
                                style_img, content_img,
@@ -100,7 +94,6 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
             raise RuntimeError('Unrecognized layer: {}'.format(layer.__class__.__name__))
         
         model.add_module(name, layer)
-
         if name in content_layers:
             target = model(content_img).detach()
             content_loss = ContentLoss(target)
@@ -121,7 +114,6 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
     model = model[:(i + 1)]
     return model, style_losses, content_losses
     
-
 def get_input_optimizer(input_img):
     optimizer = optim.LBFGS([input_img.requires_grad_()])
     return optimizer
@@ -138,10 +130,8 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
         def closure():
             # correct values of updated input image
             input_img.data.clamp_(0, 1)
-
             optimizer.zero_grad()
             model(input_img)
-
             style_score = torch.tensor(0.0, device=device, requires_grad=True)
             content_score = torch.tensor(0.0, device=device, requires_grad=True)
 
@@ -153,7 +143,6 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
 
             style_score *= style_weight
             content_score *= content_weight
-
             loss = style_score + content_score
             loss.backward()
 
@@ -170,4 +159,3 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
 
     input_img.data.clamp_(0, 1)
     return input_img
-
