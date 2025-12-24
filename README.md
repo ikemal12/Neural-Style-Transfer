@@ -21,7 +21,7 @@ Here are a couple more examples:
 <img src="results/man_styled_with_mosaic_20251223-222931/result.jpg" width="270px">
 
 <img src="results/pytorch-pretrained-models/candy_taj_mahal.jpg" width="270px">
-<img src="results/pytorch-pretrained-models/starry_taj_mahal.jpg" width="270px">
+<img src="results/tajmahal_styled_with_rain-princess_20251224-190621/result.jpg" width="270px">
 <img src="results/pytorch-pretrained-models/mosaic_taj_mahal.jpg" width="270px">
 </p>
 
@@ -56,11 +56,11 @@ I have also optimized this naive implementation following [Perceptual Losses for
 and Super-Resolution](https://arxiv.org/pdf/1603.08155) by Johnson et al., achieving significantly faster inference which enables the algorithm to be applied to videos too!
 
 <p align="center">
-    <img src="gifs/monkey.gif" width="300" title="Monkey">
-    <img src="gifs/swans.gif" width="300" title="Swans">
-    <img src="gifs/tiger.gif" width="300" title="Tiger">
+    <img src="gifs/monkey.gif" width="250" title="Monkey">
+    <img src="gifs/swans.gif" width="250" title="Swans">
+    <img src="gifs/tiger.gif" width="250" title="Tiger">
     <br><br>
-    <img src="gifs/monkey_candy.gif" width="300" title="Candy monkey">
-    <img src="gifs/swans_mosaic.gif" width="300" title="Mosaic swans">
-    <img src="gifs/tiger_rain_princess.gif" width="300" title="Rain princess tiger">
+    <img src="gifs/monkey_candy.gif" width="250" title="Candy monkey">
+    <img src="gifs/swans_mosaic.gif" width="250" title="Mosaic swans">
+    <img src="gifs/tiger_rain_princess.gif" width="250" title="Rain princess tiger">
 </p>
