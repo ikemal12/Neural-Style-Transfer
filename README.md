@@ -56,11 +56,12 @@ I have also optimized this naive implementation following [Perceptual Losses for
 and Super-Resolution](https://arxiv.org/pdf/1603.08155) by Johnson et al., achieving significantly faster inference which enables the algorithm to be applied to videos too!
 
 <p align="center">
-    <img src="gifs/monkey.gif" width="250" title="Monkey">
-    <img src="gifs/swans.gif" width="250" title="Swans">
-    <img src="gifs/tiger.gif" width="250" title="Tiger">
+    <img src="gifs/monkey.gif" width="300" title="Monkey">
+    <img src="gifs/monkey_candy.gif" width="300" title="Candy monkey">
     <br><br>
-    <img src="gifs/monkey_candy.gif" width="250" title="Candy monkey">
-    <img src="gifs/swans_mosaic.gif" width="250" title="Mosaic swans">
-    <img src="gifs/tiger_rain_princess.gif" width="250" title="Rain princess tiger">
+    <img src="gifs/swans.gif" width="300" title="Swans">
+    <img src="gifs/swans_mosaic.gif" width="300" title="Mosaic swans">
+    <br><br>
+    <img src="gifs/tiger.gif" width="300" title="Tiger">
+    <img src="gifs/tiger_rain_princess.gif" width="300" title="Rain princess tiger">
 </p>
