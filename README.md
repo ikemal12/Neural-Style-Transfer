@@ -3,7 +3,7 @@
 This is a PyTorch implementation of neural style transfer based on the paper [A Neural Algorithm of Artistic Style](https://arxiv.org/pdf/1508.06576) by Gatys et al. 
 The aim is to transfer the artistic style of one image onto the content of another using a deep CNN (in this case a pre-trained VGG19 network).
 
-Here is an example of the Taj Mahal mixed with the style The Starry Night by Vincent van Gogh:
+Here is an example of the Taj Mahal mixed with The Starry Night by Vincent van Gogh:
 
 <div align="center">
     <img src="images/style/starrynight.jpg" alt="Starry Night" width="256"/>
@@ -30,48 +30,36 @@ Here are a couple more examples:
 And here are some results coupled with their style:
 
 <p align="center">
-<img src="results/gray_bridge_styled_with_vg_la_cafe_20251224-181051/result.jpg" width="267px">
-<img src="images/style/vg_la_cafe.jpg" width="267px">
-    
-<img src="results/gray_bridge_styled_with_wave_crop_20251224-181717/result.jpg" width="267px">
-<img src="images/style/wave_crop.jpg" width="267px">
-
-<img src="results/pytorch-pretrained-models/rain_robot.jpg" width="400px">
-<img src="images/style/rain-princess.jpg" width="267px">
-
-<img src="results/golden_gate_styled_with_sunflowers_20251223-230124/result.jpg" width="400px">
-<img src="images/style/sunflowers.jpg" width="267px">
-
-<img src="results/ronaldo_styled_with_ben_giles_20251223-225458/result.jpg" width="400px">
-<img src="images/style/ben_giles.jpg" width="267px">
-</p>
-
-<p align="center">
 <img src="results/gray_bridge_styled_with_vg_la_cafe_20251224-181051/result.jpg" height="267px">
 <img src="images/style/vg_la_cafe.jpg" height="267px">
+<br><br>
     
 <img src="results/gray_bridge_styled_with_wave_crop_20251224-181717/result.jpg" height="267px">
 <img src="images/style/wave_crop.jpg" height="267px">
+<br><br>
 
 <img src="results/pytorch-pretrained-models/rain_robot.jpg" height="300px">
 <img src="images/style/rain-princess.jpg" height="300px">
+<br><br>
 
 <img src="results/golden_gate_styled_with_sunflowers_20251223-230124/result.jpg" height="300px">
 <img src="images/style/sunflowers.jpg" height="300px">
+<br><br>
 
 <img src="results/ronaldo_styled_with_ben_giles_20251223-225458/result.jpg" height="300px">
 <img src="images/style/ben_giles.jpg" height="300px">
 </p>
 
-I also plan to optimize this naive implementation according to the paper Perceptual Losses for Real-Time Style Transfer
-and Super-Resolution by Johnson et al. and also apply the algorithm to video streams so it can process in real-time (most likely using OpenCV).
+---
+
+I have also optimized this naive implementation following [Perceptual Losses for Real-Time Style Transfer
+and Super-Resolution](https://arxiv.org/pdf/1603.08155) by Johnson et al., achieving significantly faster inference which enables the algorithm to be applied to videos too!
 
 <p align="center">
     <img src="gifs/monkey.gif" width="300" title="Monkey">
     <img src="gifs/swans.gif" width="300" title="Swans">
     <img src="gifs/tiger.gif" width="300" title="Tiger">
-</p>
-<p align="center">
+    <br><br>
     <img src="gifs/monkey_candy.gif" width="300" title="Candy monkey">
     <img src="gifs/swans_mosaic.gif" width="300" title="Mosaic swans">
     <img src="gifs/tiger_rain_princess.gif" width="300" title="Rain princess tiger">
