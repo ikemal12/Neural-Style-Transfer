@@ -27,3 +27,14 @@ Here are a couple more examples:
 
 I also plan to optimize this naive implementation according to the paper Perceptual Losses for Real-Time Style Transfer
 and Super-Resolution by Johnson et al. and also apply the algorithm to video streams so it can process in real-time (most likely using OpenCV).
+
+<p align="center">
+    <img src="gifs/monkey.gif" width="300" title="Monkey">
+    <img src="gifs/swans.gif" width="300" title="Swans">
+    <img src="gifs/tiger.gif" width="300" title="Tiger">
+</p>
+<p align="center">
+    <img src="gifs/monkey_candy.gif" width="300" title="Candy monkey">
+    <img src="gifs/swans_mosaic.gif" width="300" title="Mosaic swans">
+    <img src="gifs/tiger_rain_princess.gif" width="300" title="Rain princess tiger">
+</p>
