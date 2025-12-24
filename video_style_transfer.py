@@ -3,7 +3,6 @@ import torch
 import numpy as np
 import argparse
 import time
-from pathlib import Path
 import torchvision.transforms as transforms
 from transformer_net import TransformerNetOld
 from PIL import Image

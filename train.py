@@ -12,7 +12,8 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description='Neural Style Transfer')
     parser.add_argument('--content', required=True, help='Path to the content image')
     parser.add_argument('--style', required=True, help='Path to the style image')
-    parser.add_argument('--output_dir', type=str, default='results/', help='Base output directory')
+    parser.add_argument('--output', type=str, help='Output file path (e.g., results/output.jpg)')
+    parser.add_argument('--output_dir', type=str, default='results/', help='Base output directory (used if --output not specified)')
     parser.add_argument('--imsize', type=int, default=512, help='Size of output image')
     parser.add_argument('--num_steps', type=int, default=300, help='Number of optimization steps')
     parser.add_argument('--style_weight', type=float, default=1000000, help='Weight for style loss')
@@ -28,17 +29,22 @@ def main(args):
     print(f"Steps: {args.num_steps}")
     print()
 
-    # create output directory
-    output_dir = create_output_directory(args.output_dir, args.content, args.style)
-    print(f"Output directory created at: {output_dir}\n")
+    if args.output:
+        output_path = args.output
+        output_dir = os.path.dirname(output_path) or '.'
+        os.makedirs(output_dir, exist_ok=True)
+        print(f"Output will be saved to: {output_path}\n")
+    else:
+        # Use timestamped directory
+        output_dir = create_output_directory(args.output_dir, args.content, args.style)
+        output_path = os.path.join(output_dir, 'result.jpg')
+        print(f"Output directory created at: {output_dir}\n")
 
-    # load images
     content_img = img_loader(args.content, args.imsize)
     style_img = img_loader(args.style, args.imsize)
     print(f"Content image shape: {content_img.shape}")
     print(f"Style image shape: {style_img.shape}\n")
 
-    # initialize input image
     if args.init_random:
         input_img = torch.randn(content_img.data.size(), device=device)
         print("Initialized with random noise")
@@ -47,7 +53,6 @@ def main(args):
         print("Initialized with content image")
     print()
 
-    # run style transfer
     print("Starting style transfer...")
     output = run_style_transfer(
         cnn, cnn_normalization_mean, cnn_normalization_std,
@@ -61,12 +66,13 @@ def main(args):
     minutes = int(elapsed // 60)
     seconds = int(elapsed % 60)
     print(f"\nStyle transfer complete in {minutes} minutes {seconds} seconds\n")
-
-    # save results
-    result_path = os.path.join(output_dir, 'result.jpg')
-    comparison_path = os.path.join(output_dir, 'comparison.jpg')    
-    save_image(output, result_path)
-    save_comparison(content_img, style_img, output, comparison_path)
+    save_image(output, output_path)
+    print(f"Result saved to: {output_path}")
+    
+    if not args.output:
+        comparison_path = os.path.join(output_dir, 'comparison.jpg')
+        save_comparison(content_img, style_img, output, comparison_path)
+        print(f"Comparison saved to: {comparison_path}")
 
 if __name__ == '__main__':
     args = parse_arguments()
