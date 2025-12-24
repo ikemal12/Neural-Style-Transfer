@@ -16,13 +16,51 @@ Here is an example of the Taj Mahal mixed with the style The Starry Night by Vin
 Here are a couple more examples:
 
 <p align="center">
-<img src="images/content/man.jpg" width="270px">
-<img src="images/style/mosaic.jpg" width="270px">
+<img src="results/pytorch-pretrained-models/candy_man.jpg" width="270px">
+<img src="results/pytorch-pretrained-models/rain_man.jpg" width="270px">
 <img src="results/man_styled_with_mosaic_20251223-222931/result.jpg" width="270px">
 
-<img src="images/content/golden_gate.jpg" width="270px">
-<img src="images/style/sunflowers.jpg" width="270px">
-<img src="results/golden_gate_styled_with_sunflowers_20251223-230124/result.jpg" width="270px">
+<img src="results/pytorch-pretrained-models/candy_taj_mahal.jpg" width="270px">
+<img src="results/pytorch-pretrained-models/starry_taj_mahal.jpg" width="270px">
+<img src="results/pytorch-pretrained-models/mosaic_taj_mahal.jpg" width="270px">
+</p>
+
+---
+
+And here are some results coupled with their style:
+
+<p align="center">
+<img src="results/gray_bridge_styled_with_vg_la_cafe_20251224-181051/result.jpg" width="267px">
+<img src="images/style/vg_la_cafe.jpg" width="267px">
+    
+<img src="results/gray_bridge_styled_with_wave_crop_20251224-181717/result.jpg" width="267px">
+<img src="images/style/wave_crop.jpg" width="267px">
+
+<img src="results/pytorch-pretrained-models/rain_robot.jpg" width="400px">
+<img src="images/style/rain-princess.jpg" width="267px">
+
+<img src="results/golden_gate_styled_with_sunflowers_20251223-230124/result.jpg" width="400px">
+<img src="images/style/sunflowers.jpg" width="267px">
+
+<img src="results/ronaldo_styled_with_ben_giles_20251223-225458/result.jpg" width="400px">
+<img src="images/style/ben_giles.jpg" width="267px">
+</p>
+
+<p align="center">
+<img src="results/gray_bridge_styled_with_vg_la_cafe_20251224-181051/result.jpg" height="267px">
+<img src="images/style/vg_la_cafe.jpg" height="267px">
+    
+<img src="results/gray_bridge_styled_with_wave_crop_20251224-181717/result.jpg" height="267px">
+<img src="images/style/wave_crop.jpg" height="267px">
+
+<img src="results/pytorch-pretrained-models/rain_robot.jpg" height="300px">
+<img src="images/style/rain-princess.jpg" height="300px">
+
+<img src="results/golden_gate_styled_with_sunflowers_20251223-230124/result.jpg" height="300px">
+<img src="images/style/sunflowers.jpg" height="300px">
+
+<img src="results/ronaldo_styled_with_ben_giles_20251223-225458/result.jpg" height="300px">
+<img src="images/style/ben_giles.jpg" height="300px">
 </p>
 
 I also plan to optimize this naive implementation according to the paper Perceptual Losses for Real-Time Style Transfer
