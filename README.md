@@ -21,7 +21,7 @@ Here are a couple more examples:
 <img src="results/man_styled_with_mosaic_20251223-222931/result.jpg" width="270px">
 
 <img src="results/pytorch-pretrained-models/candy_taj_mahal.jpg" width="270px">
-<img src="results/tajmahal_styled_with_rain-princess_20251224-190621/result.jpg" width="270px">
+<img src="results/pytorch-pretrained-models/tajmahal_rain_princess.jpg" width="270px">
 <img src="results/pytorch-pretrained-models/mosaic_taj_mahal.jpg" width="270px">
 </p>
 
